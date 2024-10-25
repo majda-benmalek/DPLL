@@ -1,0 +1,81 @@
+                      Mini-projet 1 : solveur DPLL récursif
+                             fichier RENDU
+                       
+
+********** à remplir obligatoirement **********
+
+**Un mini-projet sans fichier RENDU rempli ne recevra pas de note.**
+
+Date limite: le vendredi 25 octobre 2024 à 19:00
+
+Identité
+--------
+Nombre de binôme: 16
+Nom, prénom 1: Mushtaq Amenah 
+Nom, prénom 2: Benmalek Majda
+
+
+Questions sur votre code
+------------------------
+0. Avez-vous testé que `make dpll` s'exécute sans erreurs ou warnings,
+   et que ensuite `./dpll sudoku-4x4.cnf` donne la réponse attendue (voir
+   fichier README) ?
+
+   Oui, nous avons testé et il n'y a pas d'erreur ni de warnings. sudoku-4x4.cnf donne la réponse attendu. 
+
+---
+
+1. Avez-vous utilisé la fonction `filter_map` (donné dans dpll.ml)
+   dans votre implémentation de `simplifie` ? 
+   - Si oui, expliquez en quelques phrases en français comment vous
+     l'avez utilisée.
+   - Si non, expliquez en quelques phrases en français comment
+     fonctionne votre implémentation de `simplifie`.
+
+   Nous n'utilisons pas filter_map. On utilise une fonction auxiliaire `simplifie_petite_clause` qui permet de simplifier une seule clause, et la fonction principale `simplifie` appelle `simplifie_petite_clause` sur l'ensemble des clauses. 
+   Dans `simplifie_petite_clause` quand on trouve le littéral satisfait dans la clause on renvoie None et quand on trouve son dual on renvoie la clause sans le dual.
+   Dans `simplifie` on appelle `simplifie_petite_clause`si cette derniere renvoie None on appelle sur la clausse suivante sinon la clause simplifier au resultat. 
+
+
+---
+
+2. Pour l'implémentation de `unitaire`, quelles sont les fonctions
+   auxiliaires que vous avez utilisées et/ou écrites ? (Par une
+   fonction auxiliaire, on entend ici soit une fonction d'une
+   bibliothèque, par exemple des fonctions comme `List.length`,
+   `List.rev_append`, ou une fonction `aux_unitaire` que vous avez
+   écrite vous-mêmes.) Expliquez en quelques phrases en français
+   comment ces fonctions auxiliaires sont utilisées dans votre
+   implémentation de la fonction `unitaire`.
+
+   Nous avons utiliser `List.length` pour connaitre la taille de la sous-liste pour renvoyer l'élement si la sous-liste est de taille 1 et une fois cette sous-liste trouvé on utilise `List.nth` pour renvoyer l'élément unitaire. 
+
+---
+
+3. Pour l'implémentation de `pur`, quelles sont les fonctions
+   auxiliaires que vous avez utilisées et/ou écrites ?  Expliquez en
+   quelques phrases en français comment ces fonctions auxiliaires sont
+   utilisées dans votre implémentation de la fonction `pur`.
+
+   On utilise `List.flatten` , `List.sort` ainsi que nos deux fonctions auxiliaires `comp` et `sans_doublons` pour applatir la liste, la trier en fonction des valeurs absolues des éléments et supprimer les doublons pour avoir que des éléments distincts et faciliter la recherche d'un élément pur.
+
+---
+
+4. Donnez un exemple d'une formule pour laquelle les deux fonctions
+   `solveur_split` et `solveur_dpll_rec` ont un comportement
+   différent, et expliquez les différences entre ces deux fonctions.
+
+[[1;2;-3];[-1;2;-3];[3]]   
+Pour cet exemple `solveur_dpll_rec` vas simplifier la clause avec 3 (unitaire) puis 2 (pur) 
+Tandis que `solveur_split`  simplifie par 1 et -1 puis par 2 et -2 et ensuite par 3 et -3. 
+La différence entre les 2 c'est le choix du littéral avec lequel on simplifie, avec `solveur_split` le choix du littéral n'est pas pertinent ce qui ne garanti pas une simplification efficace. Tandis qu'avec `solveur_dpl_rec` le choix est fait par rapport au fait que le littéral choisi (pur et unitaire) doit etre satisfait pour satisfaire l'ensemble de clauses.
+
+---
+
+5. Avez-vous d'autres remarques sur votre rendu ? (question optionnelle)
+
+**à remplir**
+
+---
+
+--fin du fichier RENDU--
